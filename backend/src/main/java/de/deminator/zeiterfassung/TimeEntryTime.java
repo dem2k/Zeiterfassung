@@ -2,17 +2,11 @@ package de.deminator.zeiterfassung;
 
 import java.time.LocalTime;
 
-import org.springframework.data.annotation.Id;
-
 public class TimeEntryTime {
 
-    private String id;
     private LocalTime start;
     private LocalTime stop;
 
-    public TimeEntryTime(String id) {
-        this.id = id;
-    }
 
     public LocalTime getStart() {
         return start;
