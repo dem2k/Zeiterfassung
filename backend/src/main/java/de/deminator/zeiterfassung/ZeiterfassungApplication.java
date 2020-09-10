@@ -23,19 +23,20 @@ public class ZeiterfassungApplication implements CommandLineRunner {
 
         repository.deleteAll();
 
-        TimeEntryTime entryTime1 = new TimeEntryTime("1");
+        TimeEntryTime entryTime1 = new TimeEntryTime();
         entryTime1.setStart(LocalTime.of(9, 0));
         entryTime1.setStop(LocalTime.of(12, 0));
-        TimeEntryTime entryTime2 = new TimeEntryTime("2");
+
+        TimeEntryTime entryTime2 = new TimeEntryTime();
         entryTime2.setStart(LocalTime.of(13, 0));
         entryTime2.setStop(LocalTime.of(18, 0));
-	    TimeEntryDay entryDay = new TimeEntryDay();
-	    entryDay.setUser("alex");
-	    entryDay.setDate(LocalDate.now());
+
+        TimeEntryDay entryDay = new TimeEntryDay();
+        entryDay.setUser("alex");
+        entryDay.setDate(LocalDate.now());
         entryDay.getTimes().add(entryTime1);
         entryDay.getTimes().add(entryTime2);
 
-	    repository.save(entryDay);
-        
+        repository.save(entryDay);
     }
 }
