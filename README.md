@@ -14,3 +14,14 @@ test.json
 ```
 
 `curl.exe -v --noproxy "*" -X POST -H "Content-Type:application/json" -d "@test.json" http://localhost:8080/times`
+
+oder aus der Console:
+
+```
+fetch("http://localhost:8080/api/times").then(
+  function (response) {
+    response.json().then(function (data) {
+      console.log(data);
+    });
+  });
+```
