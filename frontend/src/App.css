@@ -1,0 +1,10 @@
+.StartStopButton {
+  margin: 5%;
+  position: absolute;
+  bottom: 0px;
+  width: 90%;
+  height: 30%;
+  font-size: 3.5rem;
+  border: 4px solid black;
+  border-radius: 10%;
+}
