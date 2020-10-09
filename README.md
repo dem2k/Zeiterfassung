@@ -29,3 +29,5 @@ fetch("http://localhost:8080/api/times").then(
     });
   });
 ```
+
+Swagger-UI:  http://localhost:8080/swagger-ui.html
