@@ -2,6 +2,7 @@ package de.deminator.zeiterfassung;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,5 +39,7 @@ public class ZeiterfassungApplication implements CommandLineRunner {
         entryDay.getTimes().add(entryTime2);
 
         repository.save(entryDay);
+        List<TimeEntryDay> all = repository.findAll();
+        System.out.println(all.get(0));
     }
 }
