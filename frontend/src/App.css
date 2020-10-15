@@ -1,10 +1,104 @@
-.StartStopButton {
-  margin: 5%;
+.App {}
+
+.MainView {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-areas: "Date" "Table" "Button";
+  grid-template-columns: 90%;
+  grid-template-rows: 10% auto 10%;
+  justify-content: center;
+}
+
+.DateSelector {
+  display: flex;
+  justify-content: center;
+  border: 2px solid black;
+  white-space: nowrap;
+  overflow-x: hidden;
+  grid-area: Date;
+}
+
+.DateSelectorDays {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.DateSelectorDays div {
+  border: 1px solid white;
+  margin: 2%;
+  width: 20%;
+  text-align: center;
+}
+
+.DateSelectorYears {
+  border: 1px solid white;
+  text-align: center;
+}
+
+.DateSelector span {
+  text-align: center;
+  margin: 5% 5%;
+  font-size: x-large;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.TimeEntryTable {
+  border: 2px solid black;
+  text-align: center;
+  font-size: xx-large;
+  font-weight: bold;
+  grid-area: Table;
+}
+
+.TimeEntry {
+  font-size: x-large;
+  font-weight: normal;
+  margin: 3%;
+  border: 1px solid black;
+}
+
+.TimeEntryPopup, .DateSelectorPopup {
   position: absolute;
-  bottom: 0px;
-  width: 90%;
-  height: 30%;
+  top: 5vh;
+  left: 10vw;
+  width: 80vw;
+  height: 90vh;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: xx-large;
+  z-index: 50;
+}
+
+.TimeEntryPopup form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.TimeEntryPopup form button, .TimeEntryPopup form label, .TimeEntryPopup form input {
+  font-size: xx-large;
+  border: 1px solid black;
+}
+.TimeEntryPopup form button {
+  margin-top: 5%;
+}
+
+.TimeEntryMask, .DateSelectorMask {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 49;
+}
+
+.StartStopButton {
   font-size: 3.5rem;
-  border: 4px solid black;
-  border-radius: 10%;
+  border: 2px solid black;
+  grid-area: Button;
 }
