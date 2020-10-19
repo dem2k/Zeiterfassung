@@ -32,4 +32,4 @@ Um frontend zu starten:
 cd frontend
 npm run start
 ```
-oder startRect.bat benutzen.
+oder frontend/startReact.bat benutzen.
