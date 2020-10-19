@@ -19,6 +19,12 @@
   grid-area: Date;
 }
 
+.DateSelectorMonths {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 5%;
+}
+
 .DateSelectorDays {
   display: flex;
   flex-wrap: wrap;
@@ -30,6 +36,11 @@
   margin: 2%;
   width: 20%;
   text-align: center;
+}
+
+.DateSelectorDaySelected {
+  background-color: white;
+  color: black;
 }
 
 .DateSelectorYears {

@@ -11,10 +11,10 @@ function TimeEntryTable(props) {    //props: user, date
             data = await data.json();
             //console.log("Data:");
             console.log(data);
+            let TimeEntryArray = [];
             for (let i = 0; i < data.length; i++) {
                 if (props.date === data[i].date && props.user === data[i].user) {
                     props.setId(data[i].id);
-                    let TimeEntryArray = [];
                     for (let j = 0; j < data[i].times.length; j++) {
                         let startTime = data[i].times[j].start.split(":")[0] + ":" + data[i].times[j].start.split(":")[1];
                         let endTime = data[i].times[j].stop.split(":")[0] + ":" + data[i].times[j].stop.split(":")[1];
@@ -22,10 +22,10 @@ function TimeEntryTable(props) {    //props: user, date
                     }
                     //console.log("TimeEntryArray:");
                     //console.log(TimeEntryArray);
-                    setTable(TimeEntryArray);
                     break;
                 }
             }
+            setTable(TimeEntryArray);
         }
         fillTimeEntryTable();
     }, [props]);

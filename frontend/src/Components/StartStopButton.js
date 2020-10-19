@@ -5,11 +5,11 @@ function StartStopButton() {
         <button onClick={
             async () => {
                 let newEntry = {
-                    "user": "jesus",
-                    "date": "2020-15-10",
+                    "user": "peter",
+                    "date": "2020-10-15",
                     "times": [
-                        { "start": "08:08", "stop": "08:09" },
-                        { "start": "9:09", "stop": "9:10" }
+                        { "start": "18:09", "stop": "22:01" },
+                        { "start": "18:01", "stop": "23:01" }
                     ]
                 }
                 let data = await fetch("http://localhost:8080/api/times", {
@@ -17,7 +17,14 @@ function StartStopButton() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: newEntry
+                    body: {
+                        "user": "alex",
+                        "date": "2020-10-15",
+                        "times": [
+                            { "start": "18:09", "stop": "22:01" },
+                            { "start": "18:01", "stop": "23:01" }
+                        ]
+                    }
                 });
                 console.log(data);
             }
