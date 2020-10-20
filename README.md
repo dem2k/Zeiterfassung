@@ -25,3 +25,11 @@ fetch("http://localhost:8080/api/times").then(
 ```
 
 Swagger-UI:  http://localhost:8080/swagger-ui.html
+
+
+Um frontend zu starten:
+```
+cd frontend
+npm run start
+```
+oder frontend/startReact.bat benutzen.
