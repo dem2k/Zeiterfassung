@@ -7,36 +7,35 @@ function DateSelector(props) {
     const [dateMonth, setDateMonth] = useState(new Date().getMonth() + 1);
     const [dateYear, setDateYear] = useState(new Date().getFullYear());
 
-    let monthArray = ["Januar", "Februar", "März", "April", "Mai", "Juni",
-        "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    const [monthArray] = useState(["Januar", "Februar", "März", "April", "Mai", "Juni",
+        "Juli", "August", "September", "Oktober", "November", "Dezember"]);
 
-    let amountOfDaysArray = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const [amountOfDays] = useState(amountOfDaysArray[dateMonth]);
+    const [daysArray, setDaysArray] = useState([]);
 
-    let daysArray = [];
-    for (let i = 1; i <= amountOfDays; i++) {
-        daysArray.push(<div key={i} className={i === dateDay ? "DateSelectorDaySelected" : ""}
-            onClick={() => {
-                setDateDay(i);
-                for (let i = 0; i < amountOfDays; i++) {
-
+    useEffect(() => {
+        const amountOfDaysArray = [31, dateYear % 4 === 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let amountOfDays = amountOfDaysArray[dateMonth - 1];
+        let tempDaysArray = [];
+        for (let i = 1; i <= amountOfDays; i++) {
+            tempDaysArray.push(<div key={i} className={i === dateDay ? "DateSelectorDaySelected" : ""}
+                onClick={() => {
+                    setDateDay(i);
                 }
-            }
-            }>{i}</div>);
-    }
+                }>{i}</div>);
+        }
+        setDaysArray(tempDaysArray);
+    }, [dateMonth, dateYear, dateDay]);
 
     let dateSelectorPopup = <div className="DateSelectorPopup">
         <div className="DateSelectorMonths">
             <button onClick={() => {
-                setDateMonth(dateMonth - 1);
-                if (dateMonth < 2) setDateMonth(12);
+                setDateMonth(Number.parseInt(dateMonth) - 1);
+                if (Number.parseInt(dateMonth) < 2) setDateMonth(12);
             }}>&#9664;</button>
             <span>{monthArray[dateMonth - 1]}</span>
             <button onClick={() => {
-                setDateMonth(dateMonth + 1);
-                if (dateMonth > 11) {
-                    setDateMonth(1);
-                }
+                setDateMonth(Number.parseInt(dateMonth) + 1);
+                if (Number.parseInt(dateMonth) > 11) setDateMonth(1);
             }}>&#9654;</button>
 
         </div>
@@ -52,9 +51,8 @@ function DateSelector(props) {
 
     let setDate = props.setDate;
     useEffect(() => {
-        let date = dateYear + "-" + dateMonth + "-" + dateDay;
+        let date = dateYear + "-" + (dateMonth < 10 ? "0" + dateMonth : dateMonth) + "-" + (dateDay < 10 ? "0" + dateDay : dateDay);
         setDate(date);
-        //daysArray[dateDay]
     }, [dateDay, dateMonth, dateYear, setDate]);
 
     return (
