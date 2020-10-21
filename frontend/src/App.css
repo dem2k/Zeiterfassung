@@ -62,6 +62,7 @@
   font-size: xx-large;
   font-weight: bold;
   grid-area: Table;
+  overflow-y: scroll;
 }
 
 .TimeEntry {
