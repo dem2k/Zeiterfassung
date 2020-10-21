@@ -109,6 +109,12 @@
   z-index: 49;
 }
 
+.TimeEntrySum {
+  border: 2px solid black;
+  margin: 3%;
+  font-size: 0.75em;
+}
+
 .StartButton, .StopButton {
   font-size: 3.5rem;
   border: 2px solid black;
