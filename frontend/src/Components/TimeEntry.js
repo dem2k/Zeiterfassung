@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 
 function TimeEntry(props) {
 
-    const [startTime, setStartTime] = useState(props.startTime);
-    const [endTime, setEndTime] = useState(props.endTime);
+    const [startTime] = useState(props.startTime);
+    const [endTime] = useState(props.endTime);
 
     function subTime(time1, time2) {
         let hours = Number.parseInt(time2.split(":")[0]) - Number.parseInt(time1.split(":")[0]);
@@ -16,7 +15,7 @@ function TimeEntry(props) {
 
         return hours + ":" + minutes;
     }
-    const [duration, setDuration] = useState(subTime(startTime, endTime));
+    const [duration] = useState(subTime(startTime, endTime));
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -33,7 +32,9 @@ function TimeEntry(props) {
             }}>Save Changes</button>
             
             <button type="button" onClick={async () => {
-                //DELETE
+                let data = await fetch("http://localhost:8080/api/times/" + props.id, {method: "DELETE"});
+                console.log(data);
+                props.setTrigger(props.trigger + 1);
             }}>Delete Entry</button>
         </form>
     </div>;

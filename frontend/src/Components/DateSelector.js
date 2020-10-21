@@ -11,7 +11,7 @@ function DateSelector(props) {
         "Juli", "August", "September", "Oktober", "November", "Dezember"];
 
     let amountOfDaysArray = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    const [amountOfDays, setAmountOfDays] = useState(amountOfDaysArray[dateMonth]);
+    const [amountOfDays] = useState(amountOfDaysArray[dateMonth]);
 
     let daysArray = [];
     for (let i = 1; i <= amountOfDays; i++) {
@@ -50,11 +50,12 @@ function DateSelector(props) {
     let dateSelectorMask = <div className="DateSelectorMask">
     </div>
 
+    let setDate = props.setDate;
     useEffect(() => {
         let date = dateYear + "-" + dateMonth + "-" + dateDay;
-        props.setDate(date);
+        setDate(date);
         //daysArray[dateDay]
-    }, [dateDay, dateMonth, dateYear]);
+    }, [dateDay, dateMonth, dateYear, setDate]);
 
     return (
         <div className="DateSelector">

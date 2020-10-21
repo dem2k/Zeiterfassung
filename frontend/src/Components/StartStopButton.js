@@ -23,11 +23,10 @@ function StartStopButton(props) {
                             "Content-Type": "application/json",
                         },
                         body: JSON.stringify({
-                            "user": "alex",
+                            "user": props.user,
                             "date": props.date,
-                            "times": [
-                                { "start": currentStartTime, "stop": buildTime(new Date())},
-                            ]
+                            "start": currentStartTime,
+                            "stop": buildTime(new Date())
                         })
                     });
                     props.setTrigger(props.trigger + 1);

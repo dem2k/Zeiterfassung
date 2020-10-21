@@ -5,7 +5,7 @@ import TimeEntryTable from './../Components/TimeEntryTable';
 import StartStopButton from './../Components/StartStopButton';
 
 function MainView() {
-    const [user, setUser] = useState("alex");
+    const [user, setUser] = useState("xtest");
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
     const [trigger, setTrigger] = useState(0); 
 
@@ -14,7 +14,7 @@ function MainView() {
     return (
         <div className="MainView">
             <DateSelector date={date} setDate={setDate}></DateSelector>
-            <TimeEntryTable user={user} date={date} trigger={trigger}></TimeEntryTable>
+            <TimeEntryTable user={user} date={date} trigger={trigger} setTrigger={setTrigger}></TimeEntryTable>
             <StartStopButton user={user} date={date} trigger={trigger} setTrigger={setTrigger}></StartStopButton>
         </div>
     );
