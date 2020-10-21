@@ -4,7 +4,7 @@ function DateSelector(props) {
     const [showMenu, setShowMenu] = useState(false);
 
     const [dateDay, setDateDay] = useState(new Date().getDate());
-    const [dateMonth, setDateMonth] = useState(new Date().getMonth());
+    const [dateMonth, setDateMonth] = useState(new Date().getMonth() + 1);
     const [dateYear, setDateYear] = useState(new Date().getFullYear());
 
     let monthArray = ["Januar", "Februar", "März", "April", "Mai", "Juni",

@@ -33,14 +33,7 @@ function TimeEntry(props) {
             }}>Save Changes</button>
             
             <button type="button" onClick={async () => {
-                let delData = await fetch("http://localhost:8080/timeEntryDays/" + props.id, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-                console.log("Deleted:")
-                console.log(delData);
+                //DELETE
             }}>Delete Entry</button>
         </form>
     </div>;
