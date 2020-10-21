@@ -25,8 +25,8 @@ public class TimeRestController {
     }
 
     @GetMapping("/times")
-    public ResponseEntity<List<TimeEntryDay>> getTimes() {
-        List<TimeEntryDay> all = repository.findAll();
+    public ResponseEntity<List<TimeEntry>> getTimes() {
+        List<TimeEntry> all = repository.findAll();
         if (all.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -35,16 +35,16 @@ public class TimeRestController {
     }
 
     @GetMapping("/times/{id}")
-    public ResponseEntity<TimeEntryDay> getTimesById(@PathVariable("id") String id) {
-        Optional<TimeEntryDay> item = repository.findById(id);
+    public ResponseEntity<TimeEntry> getTimesById(@PathVariable("id") String id) {
+        Optional<TimeEntry> item = repository.findById(id);
 
-        return item.map(timeEntryDay -> new ResponseEntity<>(timeEntryDay, HttpStatus.OK))
+        return item.map(timeEntry -> new ResponseEntity<>(timeEntry, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/times")
-    public ResponseEntity<TimeEntryDay> createTimes(@RequestBody TimeEntryDay item) {
-        TimeEntryDay newItem = repository.save(item);
+    public ResponseEntity<TimeEntry> createTimes(@RequestBody TimeEntry item) {
+        TimeEntry newItem = repository.save(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
 

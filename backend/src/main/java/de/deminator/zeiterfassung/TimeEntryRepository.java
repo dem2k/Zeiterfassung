@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface TimeEntryRepository extends MongoRepository<TimeEntryDay, String> {
-    List<TimeEntryDay> findByUser(String user);
+public interface TimeEntryRepository extends MongoRepository<TimeEntry, String> {
+    List<TimeEntry> findByUser(String user);
 }
 

@@ -1,6 +1,7 @@
 package de.deminator.zeiterfassung;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,13 +10,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "erfassung")
-public class TimeEntryDay {
+public class TimeEntry {
 
     @Id
     private String id;
     private String user;
     private LocalDate date;
-    private List<TimeEntryTime> times = new ArrayList<>();
+    private LocalTime start;
+    private LocalTime stop;
 
     public String getId() {
         return id;
@@ -37,12 +39,20 @@ public class TimeEntryDay {
         this.date = date;
     }
 
-    public List<TimeEntryTime> getTimes() {
-        return times;
+    public LocalTime getStart() {
+        return start;
     }
 
-    public void setTimes(List<TimeEntryTime> times) {
-        this.times = times;
+    public void setStart(LocalTime start) {
+        this.start = start;
+    }
+
+    public LocalTime getStop() {
+        return stop;
+    }
+
+    public void setStop(LocalTime stop) {
+        this.stop = stop;
     }
 
     @Override
@@ -53,26 +63,28 @@ public class TimeEntryDay {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TimeEntryDay that = (TimeEntryDay) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(user, that.user) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(times, that.times);
+        TimeEntry timeEntry = (TimeEntry) o;
+        return Objects.equals(id, timeEntry.id) &&
+                Objects.equals(user, timeEntry.user) &&
+                Objects.equals(date, timeEntry.date) &&
+                Objects.equals(start, timeEntry.start) &&
+                Objects.equals(stop, timeEntry.stop);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, date, times);
+        return Objects.hash(id, user, date, start, stop);
     }
 
     @Override
     public String toString() {
-        return "TimeEntryDay{" +
+        return "TimeEntry{" +
                 "id='" + id + '\'' +
                 ", user='" + user + '\'' +
                 ", date=" + date +
-                ", times=" + times +
+                ", start=" + start +
+                ", stop=" + stop +
                 '}';
     }
-
+    
 }

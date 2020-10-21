@@ -5,12 +5,10 @@
 test.json
 ```
 {
-  "user": "dima",
-  "date": "2020-09-10",
-  "times": [
-    { "start": "09:00", "stop": "12:00" },
-    { "start": "13:00", "stop": "18:00" }
-  ]
+  "user": "xtest",
+  "date": "2020-10-21",
+  "start": "12:00",
+  "stop": "17:00"
 }
 ```
 

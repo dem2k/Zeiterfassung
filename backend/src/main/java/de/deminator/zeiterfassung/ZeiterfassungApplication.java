@@ -22,24 +22,15 @@ public class ZeiterfassungApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        repository.deleteAll();
-
-        TimeEntryTime entryTime1 = new TimeEntryTime();
-        entryTime1.setStart(LocalTime.of(9, 0));
-        entryTime1.setStop(LocalTime.of(12, 0));
-
-        TimeEntryTime entryTime2 = new TimeEntryTime();
-        entryTime2.setStart(LocalTime.of(13, 0));
-        entryTime2.setStop(LocalTime.of(18, 0));
-
-        TimeEntryDay entryDay = new TimeEntryDay();
-        entryDay.setUser("alex");
+        TimeEntry entryDay = new TimeEntry();
+        entryDay.setUser("xtest");
         entryDay.setDate(LocalDate.now());
-        entryDay.getTimes().add(entryTime1);
-        entryDay.getTimes().add(entryTime2);
+        entryDay.setStart(LocalTime.of(9, 0));
+        entryDay.setStop(LocalTime.of(12, 0));
 
         repository.save(entryDay);
-        List<TimeEntryDay> all = repository.findAll();
+        List<TimeEntry> all = repository.findAll();
         System.out.println(all.get(0));
     }
+    
 }
