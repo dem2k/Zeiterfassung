@@ -108,8 +108,12 @@
   z-index: 49;
 }
 
-.StartStopButton {
+.StartButton, .StopButton {
   font-size: 3.5rem;
   border: 2px solid black;
   grid-area: Button;
+}
+
+.StopButton {
+  background-color: red;
 }

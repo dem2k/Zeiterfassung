@@ -7,13 +7,15 @@ import StartStopButton from './../Components/StartStopButton';
 function MainView() {
     const [user, setUser] = useState("alex");
     const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-    const [id, setId] = useState("");
+    const [trigger, setTrigger] = useState(0); 
+
+    
 
     return (
         <div className="MainView">
             <DateSelector date={date} setDate={setDate}></DateSelector>
-            <TimeEntryTable user={user} date={date} setId={setId}></TimeEntryTable>
-            <StartStopButton></StartStopButton>
+            <TimeEntryTable user={user} date={date} trigger={trigger}></TimeEntryTable>
+            <StartStopButton user={user} date={date} trigger={trigger} setTrigger={setTrigger}></StartStopButton>
         </div>
     );
 }

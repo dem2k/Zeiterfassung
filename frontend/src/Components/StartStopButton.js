@@ -1,34 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function StartStopButton() {
+function StartStopButton(props) {
+
+    const [recording, setRecording] = useState(false);
+    const [currentStartTime, setCurrentStartTime] = useState("00:00");
+
+    function buildTime(date) {
+        let hours = date.getHours();
+        if (hours < 10) hours = "0" + hours;
+        let minutes = date.getMinutes();
+        if (minutes < 10) minutes = "0" + minutes;
+        return hours + ":" + minutes;
+    }
+
     return (
         <button onClick={
             async () => {
-                let newEntry = {
-                    "user": "peter",
-                    "date": "2020-10-15",
-                    "times": [
-                        { "start": "18:09", "stop": "22:01" },
-                        { "start": "18:01", "stop": "23:01" }
-                    ]
+                if (recording) {
+                    let data = await fetch("http://localhost:8080/api/times", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            "user": "alex",
+                            "date": props.date,
+                            "times": [
+                                { "start": currentStartTime, "stop": buildTime(new Date())},
+                            ]
+                        })
+                    });
+                    props.setTrigger(props.trigger + 1);
+                    console.log(data);
+                } else {
+                   setCurrentStartTime(buildTime(new Date()));
                 }
-                let data = await fetch("http://localhost:8080/api/times", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: {
-                        "user": "alex",
-                        "date": "2020-10-15",
-                        "times": [
-                            { "start": "18:09", "stop": "22:01" },
-                            { "start": "18:01", "stop": "23:01" }
-                        ]
-                    }
-                });
-                console.log(data);
+                setRecording(!recording);
             }
-        } type="button" className="StartStopButton">Start</button>
+        } type="button" className={recording ? "StopButton" : "StartButton"}>{recording ? "Stop" : "Start"}</button>
     );
 }
 
