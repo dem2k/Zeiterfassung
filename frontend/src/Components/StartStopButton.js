@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function StartStopButton(props) {
 
-    const [recording, setRecording] = useState(false);
+    //const [recording, setRecording] = useState(false);
     const [currentStartTime, setCurrentStartTime] = useState("00:00");
 
     function buildTime(date) {
@@ -16,7 +16,8 @@ function StartStopButton(props) {
     return (
         <button onClick={
             async () => {
-                if (recording) {
+                console.log(props);
+                if (!props.recording) {
                     let data = await fetch("http://localhost:8080/api/times", {
                         method: "POST",
                         headers: {
@@ -25,18 +26,31 @@ function StartStopButton(props) {
                         body: JSON.stringify({
                             "user": props.user,
                             "date": props.date,
-                            "start": currentStartTime,
-                            "stop": buildTime(new Date())
+                            "start": buildTime(new Date()),
+                            "stop": null
                         })
                     });
                     props.setTrigger(props.trigger + 1);
                     console.log(data);
                 } else {
-                   setCurrentStartTime(buildTime(new Date()));
+                    let data = await fetch("http://localhost:8080/api/times", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            "id": props.lastId,
+                            "user": props.user,
+                            "date": props.date,
+                            "start": props.lastStart,
+                            "stop": buildTime(new Date())
+                        })
+                    });
+                    props.setTrigger(props.trigger + 1);
+                    console.log(data);
                 }
-                setRecording(!recording);
             }
-        } type="button" className={recording ? "StopButton" : "StartButton"}>{recording ? "Stop" : "Start"}</button>
+        } type="button" className={props.recording ? "StopButton" : "StartButton"}>{props.recording ? "Stop" : "Start"}</button>
     );
 }
 
