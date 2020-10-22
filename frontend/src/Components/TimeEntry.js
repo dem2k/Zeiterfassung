@@ -13,7 +13,7 @@ function TimeEntry(props) {
     }, [props]);
 
     function subTime(time1, time2) {
-        if(!time1 || !time2) return null;
+        if (!time1 || !time2) return null;
         let hours = Number.parseInt(time2.split(":")[0]) - Number.parseInt(time1.split(":")[0]);
         if (hours < 0) hours = 24 - hours;
         if (hours < 10) hours = "0" + hours;
@@ -21,6 +21,14 @@ function TimeEntry(props) {
         if (minutes < 0) minutes = 60 - minutes;
         if (minutes < 10) minutes = "0" + minutes;
 
+        return hours + ":" + minutes;
+    }
+
+    function buildTime(date) {
+        let hours = date.getHours();
+        if (hours < 10) hours = "0" + hours;
+        let minutes = date.getMinutes();
+        if (minutes < 10) minutes = "0" + minutes;
         return hours + ":" + minutes;
     }
 
@@ -37,21 +45,24 @@ function TimeEntry(props) {
             <button type="button" onClick={() => {
 
             }}>Save Changes</button>
-            
+
             <button type="button" onClick={async () => {
-                let data = await fetch("http://localhost:8080/api/times/" + props.id, {method: "DELETE"});
+                let data = await fetch("http://localhost:8080/api/times/" + props.id, { method: "DELETE" });
                 console.log(data);
                 props.setTrigger(props.trigger + 1);
             }}>Delete Entry</button>
         </form>
     </div>;
     let timeEntryMask = <div className="TimeEntryMask">
-
     </div>
+
+    setTimeout(() => {
+        props.setTrigger(props.trigger + 1);
+    }, 60000);
 
     return (
         <div>
-            <div onClick={() => setShowMenu(!showMenu)} className="TimeEntry"><span>{startTime + " - " + endTime + " | " + duration}</span></div>
+            <div onClick={() => setShowMenu(!showMenu)} className="TimeEntry"><span>{startTime + " - " + (endTime === undefined ? "now" : endTime) + " | " + (duration === null ? subTime(startTime, buildTime(new Date())) : duration)}</span></div>
             <div>{showMenu ? timeEntryPopup : null}</div>
             <div onClick={() => setShowMenu(false)}>{showMenu ? timeEntryMask : null}</div>
         </div>

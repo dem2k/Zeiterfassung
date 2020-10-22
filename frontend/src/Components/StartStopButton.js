@@ -16,7 +16,6 @@ function StartStopButton(props) {
     return (
         <button onClick={
             async () => {
-                console.log(props);
                 if (!props.recording) {
                     let data = await fetch("http://localhost:8080/api/times", {
                         method: "POST",
