@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function TimeEntry(props) {
 
-    const [startTime] = useState(props.startTime);
-    const [endTime] = useState(props.endTime);
+    const [startTime, setStartTime] = useState(props.startTime);
+    const [endTime, setEndTime] = useState(props.endTime);
+    const [duration, setDuration] = useState(subTime(startTime, endTime));
+
+    useEffect(() => {
+        setStartTime(props.startTime);
+        setEndTime(props.endTime);
+        setDuration(subTime(startTime, endTime));
+    }, [props]);
 
     function subTime(time1, time2) {
+        if(!time1 || !time2) return null;
         let hours = Number.parseInt(time2.split(":")[0]) - Number.parseInt(time1.split(":")[0]);
         if (hours < 0) hours = 24 - hours;
         if (hours < 10) hours = "0" + hours;
@@ -15,7 +23,6 @@ function TimeEntry(props) {
 
         return hours + ":" + minutes;
     }
-    const [duration] = useState(subTime(startTime, endTime));
 
     const [showMenu, setShowMenu] = useState(false);
 

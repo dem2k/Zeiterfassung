@@ -28,21 +28,28 @@ function TimeEntrySum(props) {
                 }
 
                 //EndTime
-                if (endTime === undefined || Number.parseInt(propEnd.split(":")[0]) > Number.parseInt(endTime.split(":")[0])) {
-                    endTime = propEnd;
-                } else if (Number.parseInt(propEnd.split(":")[0]) === Number.parseInt(endTime.split(":")[0]) &&
-                    Number.parseInt(propEnd.split(":")[1]) > Number.parseInt(endTime.split(":")[1])) {
-                    endTime = propEnd;
+                if (propEnd != null) {
+                    if (endTime === undefined || Number.parseInt(propEnd.split(":")[0]) > Number.parseInt(endTime.split(":")[0])) {
+                        endTime = propEnd;
+                    } else if (Number.parseInt(propEnd.split(":")[0]) === Number.parseInt(endTime.split(":")[0]) &&
+                        Number.parseInt(propEnd.split(":")[1]) > Number.parseInt(endTime.split(":")[1])) {
+                        endTime = propEnd;
+                    }
                 }
 
                 //Duration
                 duration = addTime(duration, subTime(propStart, propEnd));
                 setStartSum(startTime);
                 setEndSum(endTime);
-                setDurationSum(duration);
+                if (duration) {
+                    setDurationSum(duration);
+                } else {
+                    setDurationSum("");
+                }
             }
         }
         function subTime(time1, time2) {
+            if (!time1 || !time2) return null;
             let hours = Number.parseInt(time2.split(":")[0]) - Number.parseInt(time1.split(":")[0]);
             if (hours < 0) hours = 24 - hours;
             if (hours < 10) hours = "0" + hours;
@@ -53,9 +60,18 @@ function TimeEntrySum(props) {
             return hours + ":" + minutes;
         }
         function addTime(time1, time2) {
+            if (!time1) return time2;
+            if (!time2) return time1;
+            if (!time1 && !time2) return null;
             let hours = Number.parseInt(time2.split(":")[0]) + Number.parseInt(time1.split(":")[0]);
-            if (hours < 10) hours = "0" + hours;
             let minutes = Number.parseInt(time2.split(":")[1]) + Number.parseInt(time1.split(":")[1]);
+            if (minutes >= 60) {
+                while (minutes >= 60) {
+                    minutes -= 60;
+                    hours++;
+                }
+            }
+            if (hours < 10) hours = "0" + hours;
             if (minutes < 10) minutes = "0" + minutes;
             return hours + ":" + minutes;
         }
