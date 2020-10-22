@@ -9,14 +9,16 @@ function TimeEntryTable(props) {
     useEffect(() => {
         async function fillTimeEntryTable() {
             let data = await fetch("http://localhost:8080/api/times");
-            try {data = await data.json();} catch {return}
+            try {data = await data.json();} catch {
+                setTable([]);
+                return;
+            }
             console.log(data);
             let TimeEntryArray = [];
             for (let i = 0; i < data.length; i++) {
                 if (props.date === data[i].date && props.user === data[i].user) {
                     let startTime = data[i].start.split(":")[0] + ":" + data[i].start.split(":")[1];
                     let endTime;
-                    console.log("here", data[i]);
                     if (data[i].stop != null) endTime = data[i].stop.split(":")[0] + ":" + data[i].stop.split(":")[1];
                     TimeEntryArray.push(<TimeEntry key={data[i].id} startTime={startTime} endTime={endTime} id={data[i].id} trigger={props.trigger} setTrigger={props.setTrigger}></TimeEntry>);
                 }
