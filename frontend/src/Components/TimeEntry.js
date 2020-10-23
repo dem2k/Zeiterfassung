@@ -5,12 +5,13 @@ function TimeEntry(props) {
     const [startTime, setStartTime] = useState(props.startTime);
     const [endTime, setEndTime] = useState(props.endTime);
     const [duration, setDuration] = useState(subTime(startTime, endTime));
+    const [timeSinceStart, setTimeSinceStart] = useState("00:00");
 
     useEffect(() => {
         setStartTime(props.startTime);
         setEndTime(props.endTime);
         setDuration(subTime(startTime, endTime));
-    }, [props]);
+    }, [props.startTime, props.endTime, startTime, endTime]);
 
     function subTime(time1, time2) {
         if (!time1 || !time2) return null;
@@ -34,16 +35,42 @@ function TimeEntry(props) {
 
     const [showMenu, setShowMenu] = useState(false);
 
+    const [newStart, setNewStart] = useState(startTime);
+    const [newStop, setNewStop] = useState(endTime);
+
+    function handleChangeStart(e) {
+        setNewStart(e.target.value);
+    }
+
+    function handleChangeStop(e) {
+        setNewStop(e.target.value);
+    }
+
     let timeEntryPopup = <div className="TimeEntryPopup">
         <form>
             <label htmlFor="formStartTime">Start Time</label>
-            <input type="time" id="formStartTime" name="formTime" defaultValue={startTime}></input>
+            <input type="time" id="formStartTime" onChange={handleChangeStart} name="formTime" defaultValue={startTime}></input>
 
             <label htmlFor="formEndTIme">End Time</label>
-            <input type="time" id="formEndTime" name="formTime" defaultValue={endTime}></input>
+            <input type="time" id="formEndTime" onChange={handleChangeStop} name="formTime" defaultValue={endTime}></input>
 
-            <button type="button" onClick={() => {
-
+            <button type="button" onClick={async () => {
+                let data = await fetch("http://localhost:8080/api/times", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        "id": props.id,
+                        "user": props.user,
+                        "date": props.date,
+                        "start": newStart,
+                        "stop": newStop
+                    })
+                });
+                console.log("Saved Changes", data);
+                setShowMenu(false);
+                props.setTrigger(props.trigger + 1);
             }}>Save Changes</button>
 
             <button type="button" onClick={async () => {
@@ -57,12 +84,12 @@ function TimeEntry(props) {
     </div>
 
     setTimeout(() => {
-        props.setTrigger(props.trigger + 1);
-    }, 60000);
+        setTimeSinceStart(subTime(startTime, buildTime(new Date())));
+    }, 30000);
 
     return (
         <div>
-            <div onClick={() => setShowMenu(!showMenu)} className="TimeEntry"><span>{startTime + " - " + (endTime === undefined ? "now" : endTime) + " | " + (duration === null ? subTime(startTime, buildTime(new Date())) : duration)}</span></div>
+            <div onClick={() => setShowMenu(!showMenu)} className="TimeEntry"><span>{startTime + " - " + (endTime === undefined ? "now" : endTime) + " | " + (duration === null ? timeSinceStart : duration)}</span></div>
             <div>{showMenu ? timeEntryPopup : null}</div>
             <div onClick={() => setShowMenu(false)}>{showMenu ? timeEntryMask : null}</div>
         </div>

@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function StartStopButton(props) {
-
-    //const [recording, setRecording] = useState(false);
-    const [currentStartTime, setCurrentStartTime] = useState("00:00");
 
     function buildTime(date) {
         let hours = date.getHours();

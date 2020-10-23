@@ -20,7 +20,7 @@ function TimeEntryTable(props) {
                     let startTime = data[i].start.split(":")[0] + ":" + data[i].start.split(":")[1];
                     let endTime;
                     if (data[i].stop != null) endTime = data[i].stop.split(":")[0] + ":" + data[i].stop.split(":")[1];
-                    TimeEntryArray.push(<TimeEntry key={data[i].id} startTime={startTime} endTime={endTime} id={data[i].id} trigger={props.trigger} setTrigger={props.setTrigger}></TimeEntry>);
+                    TimeEntryArray.push(<TimeEntry key={data[i].id} user={props.user} date={props.date} startTime={startTime} endTime={endTime} id={data[i].id} trigger={props.trigger} setTrigger={props.setTrigger}></TimeEntry>);
                 }
             }
             props.setRecording(Boolean(TimeEntryArray[TimeEntryArray.length - 1].props.endTime === null ||
